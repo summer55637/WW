@@ -10,7 +10,9 @@
  *   node 下載素材.mjs all
  *
  * 可選參數：
- *   --limit=100       只下載前 100 個，供測試
+ *   --limit=100       只下載排序後前 100 個
+ *   --dir=fx          只下載指定素材子資料夾（例如 fx、sprites）
+ *   --sample=100      從指定子資料夾均勻抽樣 100 個，供容量估算
  *   --jobs=4          同時下載數量（預設 4）
  *   --force           覆蓋已存在的非空檔案
  */
@@ -40,8 +42,12 @@ const ALLOWED_EXT = new Set([".png", ".jpg", ".jpeg", ".webp", ".svg", ".ogg", "
 const args = process.argv.slice(2);
 const group = args.find(a => !a.startsWith("--")) || "core";
 const limitArg = args.find(a => a.startsWith("--limit="));
+const sampleArg = args.find(a => a.startsWith("--sample="));
+const dirArg = args.find(a => a.startsWith("--dir="));
 const jobsArg = args.find(a => a.startsWith("--jobs="));
 const limit = limitArg ? Number(limitArg.split("=")[1]) : 0;
+const sample = sampleArg ? Number(sampleArg.split("=")[1]) : 0;
+const dir = dirArg ? dirArg.split("=").slice(1).join("=").trim() : "";
 const jobs = Math.max(1, Math.min(8, Number(jobsArg?.split("=")[1] || 4)));
 const force = args.includes("--force");
 
@@ -51,6 +57,26 @@ if (!["core", "combat", "audio", "all"].includes(group)) {
 }
 if (limitArg && (!Number.isInteger(limit) || limit < 1)) {
   console.error("--limit 必須是正整數，例如 --limit=100");
+  process.exit(1);
+}
+if (sampleArg && (!Number.isInteger(sample) || sample < 1)) {
+  console.error("--sample 必須是正整數，例如 --sample=50");
+  process.exit(1);
+}
+if (limitArg && sampleArg) {
+  console.error("--limit 和 --sample 請擇一使用。");
+  process.exit(1);
+}
+const validDirs = Object.values(GROUPS).flatMap(items =>
+  items.map(prefix => prefix.slice("assets/".length, -1))
+);
+if (dir && !validDirs.includes(dir)) {
+  console.error("不認識這個資料夾。可用：" + validDirs.join("、"));
+  process.exit(1);
+}
+if (dir && group !== "all" &&
+    !GROUPS[group].some(prefix => prefix === "assets/" + dir + "/")) {
+  console.error("--dir=" + dir + " 不屬於 " + group + " 批次。");
   process.exit(1);
 }
 
@@ -138,13 +164,31 @@ async function main() {
 
   const prefixes = group === "all" ? ALL_GROUPS : GROUPS[group];
   let selected = [...unique].filter(p => prefixes.some(prefix => p.startsWith(prefix)));
+  if (dir) selected = selected.filter(p => p.startsWith("assets/" + dir + "/"));
   selected.sort((a, b) => a.localeCompare(b, "zh-Hant"));
-  if (limit) selected = selected.slice(0, limit);
+
+  // 均勻抽樣：從排序後的完整清單等距取樣，避免只抓到資料夾開頭的檔案。
+  if (sample && sample < selected.length) {
+    const evenlySampled = [];
+    if (sample === 1) {
+      evenlySampled.push(selected[Math.floor((selected.length - 1) / 2)]);
+    } else {
+      for (let i = 0; i < sample; i++) {
+        const index = Math.round(i * (selected.length - 1) / (sample - 1));
+        evenlySampled.push(selected[index]);
+      }
+    }
+    selected = evenlySampled;
+  } else if (limit) {
+    selected = selected.slice(0, limit);
+  }
 
   if (selected.length === 0) throw new Error("此批次沒有找到可下載的素材路徑。");
 
   await fs.mkdir(OUTPUT_DIR, { recursive: true });
   console.log("批次：" + group);
+  if (dir) console.log("指定資料夾：assets/" + dir + "/");
+  if (sample) console.log("抽樣方式：完整清單均勻抽樣");
   console.log("素材數：" + selected.length);
   console.log("同時下載：" + jobs);
   console.log("存放位置：" + OUTPUT_DIR);
@@ -186,6 +230,8 @@ async function main() {
   const summary = [
     "放置天地素材下載結果",
     "批次：" + group,
+    "指定資料夾：" + (dir ? "assets/" + dir + "/" : "全部"),
+    "抽樣方式：" + (sample ? "均勻抽樣 " + sample : (limit ? "前 " + limit + " 個" : "完整清單")),
     "日期：" + new Date().toLocaleString(),
     "本批清單數：" + selected.length,
     "新下載成功：" + downloaded.length,
