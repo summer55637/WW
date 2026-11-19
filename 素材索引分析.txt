@@ -1,0 +1,25 @@
+
+========== assets-index.json ==========
+大小：1034736 bytes
+頂層類型：Array
+頂層欄位：0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59
+目前累計素材路徑：22262
+
+========== boot-pack-6bcc58a1.json ==========
+大小：9365998 bytes
+頂層類型：object
+頂層欄位：assets/morphanim/亞力安/attack/0.png, assets/morphanim/亞力安/attack/1.png, assets/morphanim/亞力安/attack/2.png, assets/morphanim/亞力安/attack/3.png, assets/morphanim/亞力安/attack/4.png, assets/morphanim/亞力安/hurt/0.png, assets/morphanim/亞力安/hurt/1.png, assets/morphanim/亞力安/idle/0.png, assets/morphanim/亞力安/idle/1.png, assets/morphanim/亞力安/idle/2.png, assets/morphanim/亞力安/idle/3.png, assets/morphanim/亞力安/idle/4.png, assets/morphanim/亞力安/idle/5.png, assets/morphanim/亞力安/idle/6.png, assets/morphanim/侏儒/attack/0.png, assets/morphanim/侏儒/attack/1.png, assets/morphanim/侏儒/attack/2.png, assets/morphanim/侏儒/attack/3.png, assets/morphanim/侏儒/hurt/0.png, assets/morphanim/侏儒/idle/0.png, assets/morphanim/侏儒/idle/1.png, assets/morphanim/侏儒/idle/2.png, assets/morphanim/依詩蒂/attack/0.png, assets/morphanim/依詩蒂/attack/1.png, assets/morphanim/依詩蒂/attack/2.png, assets/morphanim/依詩蒂/attack/3.png, assets/morphanim/依詩蒂/attack/4.png, assets/morphanim/依詩蒂/attack/5.png, assets/morphanim/依詩蒂/hurt/0.png, assets/morphanim/依詩蒂/hurt/1.png, assets/morphanim/依詩蒂/hurt/2.png, assets/morphanim/依詩蒂/idle/0.png, assets/morphanim/依詩蒂/idle/1.png, assets/morphanim/依詩蒂/idle/10.png, assets/morphanim/依詩蒂/idle/11.png, assets/morphanim/依詩蒂/idle/2.png, assets/morphanim/依詩蒂/idle/3.png, assets/morphanim/依詩蒂/idle/4.png, assets/morphanim/依詩蒂/idle/5.png, assets/morphanim/依詩蒂/idle/6.png, assets/morphanim/依詩蒂/idle/7.png, assets/morphanim/依詩蒂/idle/8.png, assets/morphanim/依詩蒂/idle/9.png, assets/morphanim/克特/attack/0.png, assets/morphanim/克特/attack/1.png, assets/morphanim/克特/attack/2.png, assets/morphanim/克特/attack/3.png, assets/morphanim/克特/hurt/0.png, assets/morphanim/克特/hurt/1.png, assets/morphanim/克特/idle/0.png, assets/morphanim/克特/idle/1.png, assets/morphanim/克特/idle/2.png, assets/morphanim/克特/idle/3.png, assets/morphanim/刺客首領/attack/0.png, assets/morphanim/刺客首領/attack/1.png, assets/morphanim/刺客首領/attack/2.png, assets/morphanim/刺客首領/attack/3.png, assets/morphanim/刺客首領/attack/4.png, assets/morphanim/刺客首領/attack/5.png, assets/morphanim/刺客首領/attack/6.png
+目前累計素材路徑：22262
+
+========== 素材統計 ==========
+總路徑數：22262
+{
+  "png": 21416,
+  "jpg": 164,
+  "mp3": 40,
+  "svg": 2,
+  "ogg": 638,
+  "webp": 2
+}
+
+完整路徑清單另存於素材完整路徑清單.txt
