@@ -55,7 +55,7 @@ if (limitArg && (!Number.isInteger(limit) || limit < 1)) {
 }
 
 function safeRelativePath(value) {
-  const clean = value.split("?")[0].replaceAll("\\\\", "/");
+  const clean = value.split("?")[0].replaceAll("\\", "/");
   const normalized = path.posix.normalize(clean);
   if (!normalized.startsWith("assets/") || normalized.startsWith("../") ||
       normalized.includes("/../") || path.posix.isAbsolute(normalized)) {
